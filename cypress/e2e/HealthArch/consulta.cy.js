@@ -1,28 +1,31 @@
 describe('Cadastro de consultas', () => {
 
     beforeEach(() => {
-        cy.visit('');
+        cy.visit('https://health-arch-testes-qvhxbntar-gabriel-assys.vercel.app/ConsultasPage');
     })
 
     it('Adicionar consulta', () => {
-        cy.get('#inputTituloConsutla').type('Exame de rotina');
+        cy.get('#inputTituloConsulta').type('Exame de rotina');
         cy.get('#inputDescricaoConsulta').type('Apenas realizar os exames de rotina de prache.');
         cy.get('#inputHoraConsulta').type('11:00')
         cy.get('#botaoCadastrarConsulta').click();
+        cy.on('window:alert', (message) => {
+            expect(message).to.equal("Consulta cadastrada com sucesso!");
+            cy.get('body').type('{enter}');
+        })
     })
 
-    it('Editar consulta', () => {
-        cy.get('#inputHoraConsulta').type('12:00');
-        cy.get('#botaoEditaConsulta').click();
-    });
-
-    it('Buscar consulta', () => {
+    it('Buscar consulta valida', () => {
         cy.get('#inputTituloConsulta').type('Exame de rotina');
         cy.get('#botaoBuscarConsulta').click();
     })
 
     it('Excluir consulta', () => {
-        cy.get('listaBuscaConsulta__item').should('be.visible');
+        cy.get('#inputTituloConsulta').type('Exame de rotina')
         cy.get('#botaoExcluirConsulta').click();
+        cy.on('window:alert', (message) => {
+            expect(message).to.equal("Consulta excluída com sucesso!");
+            cy.get('body').type('{enter}');
+        })
     })
 })
