@@ -1,0 +1,11 @@
+node_modules/
+
+cypress/screenshots/
+cypress/videos/
+cypress/fixtures/
+cypress/results/
+
+coverage/
+
+.env
+.env.local
